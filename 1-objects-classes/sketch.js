@@ -1,12 +1,12 @@
 //create a variable to hold one ball
 let spear;
-function printMousePos(event) {
-  document.body.textContent =
-    "clientX: " + event.clientX +
-    " - clientY: " + event.clientY;
-}
-
-document.addEventListener("click", printMousePos);
+// function printMousePos(event) {
+//   document.body.textContent =
+//     "clientX: " + event.clientX +
+//     " - clientY: " + event.clientY;
+// }
+//
+// document.addEventListener("click", printMousePos);
 function setup() {
   createCanvas(800, 400);
   spear = new Spear(0, 100,"brown"); //make a new ball from the Ball class and call it b.
