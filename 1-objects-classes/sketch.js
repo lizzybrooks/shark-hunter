@@ -1,36 +1,22 @@
 //create a variable to hold one ball
 let spear;
-function relMouseCoords(event){
-    var totalOffsetX = 0;
-    var totalOffsetY = 0;
-    var canvasX = 0;
-    var canvasY = 0;
-    var currentElement = this;
+let spearX;
+let spearY;
 
-    do{
-        totalOffsetX += currentElement.offsetLeft - currentElement.scrollLeft;
-        totalOffsetY += currentElement.offsetTop - currentElement.scrollTop;
-    }
-    while(currentElement = currentElement.offsetParent)
-
-    canvasX = event.pageX - totalOffsetX;
-    canvasY = event.pageY - totalOffsetY;
-
-    return {x:canvasX, y:canvasY}
+function mouseClicked(){
+  print(mouseX, mouseY);
+  spearX = mouseX;
+  spearY = mouseY;
 }
 function setup() {
   createCanvas(800, 400);
-  spear = new Spear(0, 100,"brown"); //make a new ball from the Ball class and call it b.
+  spear = new Spear(100, 100,"brown",1); //make a new ball from the Ball class and call it b.
 }
-
-coords = canvas.relMouseCoords(event);
-canvasX = coords.x;
-canvasY = coords.y;
 
 function draw(){
 	background(220);
     spear.drawSpear(); //draw the ball called b (go look in the Ball class for the drawBall function)
-    spear.moveSpear(); //move the ball called b (go look in the Ball class for the moveBall function)
+    // spear.moveSpear(); //move the ball called b (go look in the Ball class for the moveBall function)
 }
 
 
@@ -46,11 +32,11 @@ class Spear {
     		stroke(10);
     		fill(this.color);
 
-        strokeWeight(5);
-        line(this.x,this.y,coords.x,coords.y);
+        strokeWeight(3);
+        line(this.x,this.y,spearX,spearY);
 	}
 	moveSpear(){ //update the location of the ball, so it moves across the screen
-		this.x = this.x+4;
-		this.y = this.y+2;
+		this.x = this.x;
+		this.y = this.y;
 	}
 }
