@@ -1,31 +1,31 @@
-//flappy bird-like
+//flappy boat-like
 //mouse click or x to flap
 
 var GRAVITY = 0.3;
 var FLAP = -7;
 var GROUND_Y = 450;
 var MIN_OPENING = 300;
-var bird, ground;
+var boat, ground;
 var pipes;
 var gameOver;
-var birdImg, pipeImg, groundImg, bgImg;
+var boatImg, pipeImg, groundImg, bgImg;
 
 
 function setup() {
   createCanvas(400, 600);
 push();
 scale(.25);
-  birdImg = loadImage('sprites/Asset 1001.png');
+  boatImg = loadImage('sprites/manboat-1.png', 'manboat-2.png', 'manboat-3.png');
 pop();
-  pipeImg = loadImage('assets/flappy_pipe.png');
-  groundImg = loadImage('assets/flappy_ground.png');
-  bgImg = loadImage('assets/flappy_bg.png');
+  pipeImg = loadImage('sprites/flappy_pipe.png');
+  groundImg = loadImage('sprites/flappy_ground.png');
+  bgImg = loadImage('sprites/flappy_bg.png');
 
-  bird = createSprite(width/6, height/6, 10, 10);
-  bird.rotateToDirection = true;
-  bird.velocity.x = 4;
-  bird.setCollider('circle', 0, 0, 20);
-  bird.addImage(birdImg);
+  boat = createSprite(width/6, height/6, 10, 10);
+  boat.rotateToDirection = true;
+  boat.velocity.x = 4;
+  boat.setCollider('circle', 0, 0, 20);
+  boat.addImage(boatImg);
 
   ground = createSprite(800/2, GROUND_Y+100); //image 800x200
   ground.addImage(groundImg);
@@ -45,30 +45,30 @@ function draw() {
   if(!gameOver) {
 
     if(keyWentDown('x'))
-      bird.velocity.y = FLAP;
+      boat.velocity.y = FLAP;
 
-    bird.velocity.y += GRAVITY;
+    boat.velocity.y += GRAVITY;
 
-    if(bird.position.y<0)
-      bird.position.y = 0;
+    if(boat.position.y<0)
+      boat.position.y = 0;
 
-    if(bird.position.y+bird.height/2 > GROUND_Y)
+    if(boat.position.y+boat.height/2 > GROUND_Y)
       die();
 
-    if(bird.overlap(pipes))
+    if(boat.overlap(pipes))
       die();
 
     //spawn pipes
     if(frameCount%60 == 0) {
       var pipeH = random(50, 300);
-      var pipe = createSprite(bird.position.x + width, GROUND_Y-pipeH/2+1+100, 80, pipeH);
+      var pipe = createSprite(boat.position.x + width, GROUND_Y-pipeH/2+1+100, 80, pipeH);
       pipe.addImage(pipeImg);
       pipes.add(pipe);
 
       //top pipe
       if(pipeH<200) {
         pipeH = height - (height-GROUND_Y)-(pipeH+MIN_OPENING);
-        pipe = createSprite(bird.position.x + width, pipeH/2-100, 80, pipeH);
+        pipe = createSprite(boat.position.x + width, pipeH/2-100, 80, pipeH);
         pipe.mirrorY(-1);
         pipe.addImage(pipeImg);
         pipes.add(pipe);
@@ -77,11 +77,11 @@ function draw() {
 
     //get rid of passed pipes
     for(var i = 0; i<pipes.length; i++)
-      if(pipes[i].position.x < bird.position.x-width/2)
+      if(pipes[i].position.x < boat.position.x-width/2)
         pipes[i].remove();
   }
 
-  camera.position.x = bird.position.x + width/4;
+  camera.position.x = boat.position.x + width/4;
 
   //wrap ground
   if(camera.position.x > ground.position.x-ground.width+width/2)
@@ -94,7 +94,7 @@ function draw() {
 
   drawSprites(pipes);
   drawSprite(ground);
-  drawSprite(bird);
+  drawSprite(boat);
 }
 
 function die() {
@@ -106,9 +106,9 @@ function newGame() {
   pipes.removeSprites();
   gameOver = false;
   updateSprites(true);
-  bird.position.x = width/2;
-  bird.position.y = height/2;
-  bird.velocity.y = 0;
+  boat.position.x = width/2;
+  boat.position.y = height/2;
+  boat.velocity.y = 0;
   ground.position.x = 800/2;
   ground.position.y = GROUND_Y+100;
 }
@@ -116,5 +116,5 @@ function newGame() {
 function mousePressed() {
   if(gameOver)
     newGame();
-  bird.velocity.y = FLAP;
+  boat.velocity.y = FLAP;
 }
