@@ -3,6 +3,17 @@ let spear;
 let spearX;
 let spearY;
 
+
+function box1(x){
+  // noStroke();
+  fill(220);
+  rect(100,100,this.x+x,40);
+}
+function box2(x){
+  // noStroke();
+  fill(220);
+  rect(500,300,this.x-10+x,50);
+}
 function mouseClicked(){
   print(mouseX, mouseY);
   spearX = mouseX;
@@ -10,13 +21,13 @@ function mouseClicked(){
 }
 function setup() {
   createCanvas(800, 400);
-  spear = new Spear(100, 100,"brown",1); //make a new ball from the Ball class and call it b.
+  spear = new Spear(100, 100,"brown"); //make a new ball from the Ball class and call it b.
 }
 
 function draw(){
 	background(220);
     spear.drawSpear(); //draw the ball called b (go look in the Ball class for the drawBall function)
-    // spear.moveSpear(); //move the ball called b (go look in the Ball class for the moveBall function)
+    spear.moveSpear(); //move the ball called b (go look in the Ball class for the moveBall function)
 }
 
 
@@ -36,7 +47,7 @@ class Spear {
         line(this.x,this.y,spearX,spearY);
 	}
 	moveSpear(){ //update the location of the ball, so it moves across the screen
-		this.x = this.x;
-		this.y = this.y;
+    box1(this.x+1);
+    box2(this.x+1);
 	}
 }
