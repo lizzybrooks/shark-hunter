@@ -7,7 +7,7 @@ let spearY;
 
 function setup() {
   createCanvas(800, 400);
-  spear = new Spear(100,100,100,100,100,100,"brown", false); //make a new ball from the Ball class and call it b.
+  spear = new Spear(100,100,100,100,100,100,"brown", true); //make a new ball from the Ball class and call it b.
 }
 
 function draw(){
