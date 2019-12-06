@@ -7,7 +7,7 @@ let spearY;
 
 function setup() {
   createCanvas(800, 400);
-  spear = new Spear(100,100,200,200,100,"brown", false); //make a new ball from the Ball class and call it b.
+  spear = new Spear(50,50,100,100,50,"brown", false); //make a new ball from the Ball class and call it b.
 }
 
 function draw(){
@@ -24,6 +24,8 @@ function mouseClicked(){
   print(mouseX, mouseY);
   spear.spearX = mouseX;
   spear.spearY = mouseY;
+  spear.moving = true;
+
 
 }
 
@@ -50,14 +52,16 @@ class Spear {
 	}
 
 	drawSpearTrajectory(){  // draw a ball on the screen at x,y
+      if(spear.moving==true){
+        stroke(10);
+        fill(this.color);
+        strokeWeight(3);
+        line(this.x,this.y,this.spearX,this.spearY);
+    }
 
-      stroke(10);
-      fill(this.color);
-      strokeWeight(3);
-      line(this.x,this.y,this.spearX,this.spearY);
+    }
 
 
-	}
 
   	drawCover1(){
 
@@ -65,13 +69,13 @@ class Spear {
         fill(220,220,220);
         rect(0,0,this.coverX,height);
        if(spear.moving==true){
-            this.coverX += 2;
+            this.coverX += 10;
       }
   	}
     drawCover2(){
-      if(this.spearX-this.coverX>200){
+      if(this.spearX-this.coverX>100){
           fill(220,220,220);
-          quad(this.coverX+200,0,this.coverX+200,height,width,height,  width,0 )
+          quad(this.coverX+100,0,this.coverX+100,height,width,height,  width,0 )
 
       }
     }
