@@ -2,6 +2,8 @@
 let spear;
 let spearX;
 let spearY;
+let me;
+
 
 
 
@@ -12,10 +14,11 @@ function setup() {
 
 function draw(){
   background(220);
-
   spear.drawSpearTrajectory(); //draw the ball called b (go look in the Ball class for the drawBall function)
   spear.drawCover1();
   spear.drawCover2();
+    beginText();
+    hitbox(200,200,200,100);
 
 }
 
@@ -34,9 +37,33 @@ function keyPressed(){
 
 }
 
+function reset(){
+  spear.moving = false;
+}
 
+function beginText(){
+  fill('red')
+  text('click to throw spear      try and hit the shark     you only get one shot so make it count!', 300, 50);
+}
 
+function successText(){
+  fill('red')
+  text('Nice! You killed the shark! Reload to try again!', 300, 200);
+}
 
+function failText(){
+  fill('red')
+  text('Darn! You are not a good shark hunter! Reload to try again!', 300, 200)
+}
+
+function hitbox(x,y,w,h){
+    x = me.x;
+    y = me.y;
+    w = me.w;
+    h = me.h;
+    fill('red');
+    rect(me.x,me.y,me.w,me.h);
+}
 class Spear {
 
 	constructor(x,y,endX,endY,coverX,color,moving){ //every ball needs an x value and a y value
@@ -58,6 +85,7 @@ class Spear {
         strokeWeight(3);
         line(this.x,this.y,this.spearX,this.spearY);
     }
+
 
     }
 
@@ -83,8 +111,6 @@ class Spear {
 	moveSpear(){
     		if(this.moving == true){
         	this.x1 = this.x1+3
-
-
     		 }
 	}
  }
