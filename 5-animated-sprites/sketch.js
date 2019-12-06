@@ -3,13 +3,13 @@ var boatImg, sharkIMG;
 
 function preload() {
 
-  boatImg = loadAnimation('sprites/manboat-1.png', 'manboat-2.png', 'manboat-3.png');
+  boatImg = loadAnimation( 'sprites/manboat-2.png', 'sprites/manboat-3.png');
   sharkIMG = loadAnimation('sprites/shark-1.png','sprites/shark-2.png');
 
   }
 
   function setup() {
-    createCanvas(800, 600);
+    createCanvas(1000, 1000);
   }
 
   function draw() {
@@ -17,7 +17,7 @@ function preload() {
 
     //specify the animation instance and its x,y position
     //animation() will update the animation frame as well
-    animation(boatImg, 300, 150);
-    animation(sharkIMG, 500,300);
+    animation(boatImg, 350, 250);
+    animation(sharkIMG, 700,550);
 
   }
