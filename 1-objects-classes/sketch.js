@@ -2,7 +2,7 @@
 let spear;
 let spearX;
 let spearY;
-let me;
+let hitbox;
 
 
 
@@ -10,6 +10,7 @@ let me;
 function setup() {
   createCanvas(800, 400);
   spear = new Spear(50,50,100,100,50,"brown", false); //make a new ball from the Ball class and call it b.
+  hitbox = new Hitbox(200,200,300,400);
 }
 
 function draw(){
@@ -17,8 +18,8 @@ function draw(){
   spear.drawSpearTrajectory(); //draw the ball called b (go look in the Ball class for the drawBall function)
   spear.drawCover1();
   spear.drawCover2();
-    beginText();
-    hitbox(200,200,200,100);
+  beginText();
+  hitbox.drawHit();
 
 }
 
@@ -56,14 +57,7 @@ function failText(){
   text('Darn! You are not a good shark hunter! Reload to try again!', 300, 200)
 }
 
-function hitbox(x,y,w,h){
-    x = me.x;
-    y = me.y;
-    w = me.w;
-    h = me.h;
-    fill('red');
-    rect(me.x,me.y,me.w,me.h);
-}
+
 class Spear {
 
 	constructor(x,y,endX,endY,coverX,color,moving){ //every ball needs an x value and a y value
@@ -113,4 +107,20 @@ class Spear {
         	this.x1 = this.x1+3
     		 }
 	}
+ }
+ class Hitbox {
+
+   constructor(x,y,w,h){
+     x = this.x;
+     y = this.y;
+     w = this.w;
+     h = this.h;
+   }
+
+     drawHit(){
+         fill("red");
+         rect(this.x,this.y,this.w,this.h);
+
+
+ }
  }
