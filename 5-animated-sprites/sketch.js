@@ -1,120 +1,148 @@
-//flappy bird-like
-//mouse click or x to flap
 
-var GRAVITY = 0.3;
-var FLAP = -7;
-var GROUND_Y = 450;
-var MIN_OPENING = 300;
-var bird, ground;
-var pipes;
-var gameOver;
-var birdImg, pipeImg, groundImg, bgImg;
+//create a variable to hold your avatar
 
+//create a variable to hold your avatar
+let me;
+let r;
+let g;
+let b;
+let bow;
+
+function preload() {
+  bow = loadImage('bowandarrow.png')
+}
 
 function setup() {
-  createCanvas(400, 600);
-push();
-scale(.25);
-  birdImg = loadImage('sprites/Asset 1001.png');
-pop();
-  pipeImg = loadImage('assets/flappy_pipe.png');
-  groundImg = loadImage('assets/flappy_ground.png');
-  bgImg = loadImage('assets/flappy_bg.png');
+  createCanvas(1000, 780);
+  r=255;
+  g=255;
+  b=255;
 
-  bird = createSprite(width/6, height/6, 10, 10);
-  bird.rotateToDirection = true;
-  bird.velocity.x = 4;
-  bird.setCollider('circle', 0, 0, 20);
-  bird.addImage(birdImg);
+  angleMode(DEGREES);
 
-  ground = createSprite(800/2, GROUND_Y+100); //image 800x200
-  ground.addImage(groundImg);
+  //make one avatar called me
+  me = new Avatar(0, 0, 10);
+  arrow = new Arrow(0,0,10);
 
-  pipes = new Group();
-  gameOver = true;
-  updateSprites(false);
-
-  camera.position.y = height/2;
 }
 
-function draw() {
+function draw(){
+	background(r,g,b);
+  angleMode(DEGREES); // Change the mode to DEGREES
+    let a = atan2(mouseY - height / 2, mouseX - width / 2);
+    translate(width / 2, height / 2);
+    push();
+    rotate(a);
+    image(bow,this.x,this.y,100,100)
+    me.drawMe();
+    me.moveMe();
 
-  if(gameOver && keyWentDown('x'))
-    newGame();
+    pop();
 
-  if(!gameOver) {
 
-    if(keyWentDown('x'))
-      bird.velocity.y = FLAP;
 
-    bird.velocity.y += GRAVITY;
-
-    if(bird.position.y<0)
-      bird.position.y = 0;
-
-    if(bird.position.y+bird.height/2 > GROUND_Y)
-      die();
-
-    if(bird.overlap(pipes))
-      die();
-
-    //spawn pipes
-    if(frameCount%60 == 0) {
-      var pipeH = random(50, 300);
-      var pipe = createSprite(bird.position.x + width, GROUND_Y-pipeH/2+1+100, 80, pipeH);
-      pipe.addImage(pipeImg);
-      pipes.add(pipe);
-
-      //top pipe
-      if(pipeH<200) {
-        pipeH = height - (height-GROUND_Y)-(pipeH+MIN_OPENING);
-        pipe = createSprite(bird.position.x + width, pipeH/2-100, 80, pipeH);
-        pipe.mirrorY(-1);
-        pipe.addImage(pipeImg);
-        pipes.add(pipe);
-      }
+    if (me.y >= 500){
+      me.y=499
     }
 
-    //get rid of passed pipes
-    for(var i = 0; i<pipes.length; i++)
-      if(pipes[i].position.x < bird.position.x-width/2)
-        pipes[i].remove();
+
+}
+
+function keyPressed() {
+  if (keyCode === 32) {
+    me.drawArrow();
   }
-
-  camera.position.x = bird.position.x + width/4;
-
-  //wrap ground
-  if(camera.position.x > ground.position.x-ground.width+width/2)
-    ground.position.x+=ground.width;
-
-  background(247, 134, 131);
-  camera.off();
-  image(bgImg, 0, GROUND_Y-190);
-  camera.on();
-
-  drawSprites(pipes);
-  drawSprite(ground);
-  drawSprite(bird);
 }
 
-function die() {
-  updateSprites(false);
-  gameOver = true;
-}
+class Arrow {
+  drawArrow(){
 
-function newGame() {
-  pipes.removeSprites();
-  gameOver = false;
-  updateSprites(true);
-  bird.position.x = width/2;
-  bird.position.y = height/2;
-  bird.velocity.y = 0;
-  ground.position.x = 800/2;
-  ground.position.y = GROUND_Y+100;
-}
+          line(this.x+80,this.y+30,this.x,this.y+30)
+      }
+      constructor(x,y, speed){ //every avatar needs an x value, a y value, and a speed
+    		    this.x = x;
+        		this.y = y;
+            this.speed = speed;
+    	}
 
-function mousePressed() {
-  if(gameOver)
-    newGame();
-  bird.velocity.y = FLAP;
+
+}
+class Avatar {
+
+	constructor(x,y, speed){ //every avatar needs an x value, a y value, and a speed
+		    this.x = x;
+    		this.y = y;
+        this.speed = speed;
+	}
+
+
+	drawMe(){
+        // strokeWeight(3);
+    		// fill("blue");
+		    // ellipse(this.x,this.y,20,20);
+        // line(this.x,this.y, this.x, this.y+40);
+        // line(this.x, this.y+40, this.x-20, this.y+60);
+        // line(this.x, this.y+40, this.x+10, this.y+50);
+        // line(this.x+10, this.y+50, this.x+5, this.y+60);
+        // line(this.x, this.y+15, this.x-10, this.y+25);
+        // line(this.x-10, this.y+25, this.x+10, this.y+35);
+        ellipse(this.x,this.y,50);
+        line(this.x,this.y+25,this.x,this.y+80)
+        line(this.x,this.y+40,this.x+70,this.y+35)
+        line(this.x,this.y+80,this.x+20,this.y+130)
+        line(this.x-30,this.y+130,this.x,this.y+80)
+        line(this.x,this.y+40,this.x-50,this.y+40)
+        line(this.x-5,this.y+30,this.x-50,this.y+40)
+        ellipse(this.x+70,this.y+35,10)
+        ellipse(this.x-8,this.y+30,10)
+        image(bow,this.x-10,this.y-20,100,100)
+
+	}
+
+	moveMe(){
+    if (keyIsDown(87)) { //if you hold the up arrow, move up by speed
+       this.y -= this.speed;
+    }
+
+    if (keyIsDown(83)) { // if you hold the down arrow, move down by speed
+        this.y += this.speed;
+    }
+    if (keyIsDown(65)){
+      this.x -= this.speed;
+    }
+    if (keyIsDown(68)){
+      this.x += this.speed;
+    }
+    if (keyIsDown(80)) { //if you hold the up arrow, move up by speed
+       this.y -= this.speed;
+    }
+
+    if (keyIsDown(60)) { // if you hold the down arrow, move down by speed
+        this.y += this.speed;
+    }
+    if (keyIsDown(60)){
+      this.x -= this.speed;
+    }
+    if (keyIsDown(60)){
+      this.x += this.speed;
+    }
+    if (keyIsDown(32)){
+      r = 255;
+      g = 255;
+      b = 255;
+    }
+	}
+
+  die(){
+if (me.y = 0){
+  me.y = 779
+
+    }
+  }
+ bouncefloor(){
+   if (this.y >= 580){
+   this.jump = -this.jump;
+   }
+
+ }
 }
