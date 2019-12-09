@@ -2,7 +2,7 @@
 let spear;
 let spearX;
 let spearY;
-let hitbox;
+let dead = false;
 
 
 
@@ -10,7 +10,6 @@ let hitbox;
 function setup() {
   createCanvas(800, 400);
   spear = new Spear(50,50,100,100,50,"brown", false); //make a new ball from the Ball class and call it b.
-  hitbox = new Hitbox(200,200,300,400);
 }
 
 function draw(){
@@ -19,7 +18,9 @@ function draw(){
   spear.drawCover1();
   spear.drawCover2();
   beginText();
-  hitbox.drawHit();
+  fill('red');
+  rect(300,400,200,100);
+  spear.hitShark();
 
 }
 
@@ -57,7 +58,9 @@ function failText(){
   text('Darn! You are not a good shark hunter! Reload to try again!', 300, 200)
 }
 
-
+if (this.dead == true){
+  successText();
+}
 class Spear {
 
 	constructor(x,y,endX,endY,coverX,color,moving){ //every ball needs an x value and a y value
@@ -107,20 +110,12 @@ class Spear {
         	this.x1 = this.x1+3
     		 }
 	}
- }
- class Hitbox {
-
-   constructor(x,y,w,h){
-     x = this.x;
-     y = this.y;
-     w = this.w;
-     h = this.h;
-   }
-
-     drawHit(){
-         fill("red");
-         rect(this.x,this.y,this.w,this.h);
-
-
- }
+  hitShark(){
+    if(this.spearY <= 400 && this.spearX <= 300){
+      this.dead = true
+    }
+    else if (this.spearY >= 400 && this.spearX >=300) {
+      failText();
+    }
+  }
  }
