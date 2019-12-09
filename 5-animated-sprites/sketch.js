@@ -3,11 +3,8 @@ var boatImg, sharkIMG;
 let sharky;
 
 function preload() {
-
-
-  boatImg = loadAnimation( 'sprites/manboat-2.png', 'sprites/manboat-3.png');
+  boatImg = loadAnimation('sprites/manboat-1.png', 'sprites/manboat-3.png');
   sharkIMG = loadAnimation('sprites/shark-1.png','sprites/shark-2.png');
-
   }
 
   function setup() {
@@ -28,6 +25,7 @@ function preload() {
 
   }
 
+
   class Shark {
     constructor(x,y){
 		this.x = x;
@@ -40,12 +38,11 @@ function preload() {
 
 
   moveShark(){
-	   this.x = this.x-2;
-	   this.y = this.y+2;
+    this.x = this.x-2;
+    this.y = this.y+2;
      if(this.y>height){
        this.x=width
        this.y =0
      }
    }
-
-  }
+}
