@@ -72,7 +72,7 @@ function preload() {
   function failText(){
     fill('red')
     text('Darn! You are not a good shark hunter! Reload to try again!', 300, 200)
-  
+
 
   if (this.dead == true){
     successText();
@@ -136,4 +136,26 @@ function preload() {
         failText();
       }
     }
+   }
+
+
+class Shark {
+       constructor(x,y){
+   		this.x = x;
+       		this.y = y;
+
+   	  }
+       drawShark(){
+         animation(sharkIMG, this.x,this.y);
+       }
+
+
+     moveShark(){
+       this.x = this.x-2;
+       this.y = this.y+2;
+        if(this.y>height){
+          this.x=width
+          this.y =0
+        }
+      }
    }
