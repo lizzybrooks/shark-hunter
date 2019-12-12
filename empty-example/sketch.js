@@ -7,7 +7,7 @@ var boatImg, sharkIMG;
 let sharky;
 
 function preload() {
-  boatImg = loadAnimation('manboat-1.png', 'manboat-3.png');
+  boatImg = loadAnimation('manboat-1.png', 'manboat-2.png');
   sharkIMG = loadAnimation('shark-1.png','shark-2.png');
   }
 
